@@ -1,0 +1,20 @@
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  name: cheese-quizz-question-reader
+spec:
+  selector:
+    matchLabels:
+      app: cheese-quizz-question
+  rules:
+  - from:
+    - source:
+        principals: ["cluster.local/ns/cheese-quizz/sa/default"]
+    to:
+    - operation:
+        methods: ["GET"]
+        paths: ["/api/*"]
+  - to:
+    - operation:
+        methods: ["GET"]
+        paths: ["/health", "/metrics"]
