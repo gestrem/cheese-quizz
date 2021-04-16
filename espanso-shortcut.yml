@@ -1,0 +1,47 @@
+# espanso configuration file
+
+# This is the default configuration file, change it as you like it
+# You can refer to the official documentation:
+# https://espanso.org/docs/
+
+# Matches are the substitution rules, when you type the "trigger" string
+# it gets replaced by the "replace" string.
+matches:
+  # Simple text replacement
+
+    # Simple text replacement
+
+oc autoscale Deployment/lamp-apache --min 1 --max 4 --cpu-percent=10 -n app2
+
+oc autoscale Deployment/lamp-php-fpm --min 1 --max 4 --cpu-percent=10 -n app2
+
+  - trigger: ":sm1"
+    replace: "oc apply -f istiofiles/vs-cheese-quizz-question-v1-v2-canary.yml -n cheese-quizz"
+
+  - trigger: ":sm2"
+    replace: "oc apply -f istiofiles/vs-cheese-quizz-question-v1-70-v2-30.yml -n cheese-quizz"
+
+  - trigger: ":sm3"
+    replace: "oc apply -f istiofiles/vs-cheese-quizz-question-all.yml -n cheese-quizz"
+
+  - trigger: ":sm4"
+    replace: "oc rsh cheese-quizz-question-v2-549ddc7dcd-9z4p7  curl http://localhost:8080/api/cheese/flag/misbehave"
+
+  - trigger: ":sm5"
+    replace: "oc scale deployment/cheese-quizz-question-v2 --replicas=2 -n cheese-quizz"
+
+  - trigger: ":sm6"
+    replace: "oc apply -f istiofiles/dr-cheese-quizz-question-cb.yml -n cheese-quizz"
+
+  - trigger: ":sm7"
+    replace: "oc rsh cheese-quizz-question-v3-6899577884-mrqmd  curl localhost:8080/api/cheese/flag/timeout"
+
+  - trigger: ":sm8"
+    replace: "oc scale deployment/cheese-quizz-question-v3 --replicas=2 -n cheese-quizz"
+
+  - trigger: ":sm9"
+    replace: "oc apply -f istiofiles/vs-cheese-quizz-question-all-retry-timeout.yml -n cheese-quizz"
+
+
+
+
